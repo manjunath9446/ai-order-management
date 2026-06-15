@@ -16,20 +16,36 @@ MODEL_PATH = os.path.join(
     "tat_model.pkl"
 )
 
-model = joblib.load(
-    MODEL_PATH
-)
+model = None
+
+if os.path.exists(MODEL_PATH):
+    model = joblib.load(MODEL_PATH)
 
 
 def predict(features):
 
-    data = pd.DataFrame(
-        [features]
-    )
+    if model:
 
-    prediction = model.predict(
-        data
-    )[0]
+        data = pd.DataFrame(
+            [features]
+        )
+
+        prediction = model.predict(
+            data
+        )[0]
+
+        return round(
+            float(prediction),
+            2
+        )
+
+    # Render fallback
+
+    prediction = (
+        features["queue_depth"] * 2 +
+        features["machine_load"] * 0.5 +
+        features["qc_failures"] * 10
+    )
 
     return round(
         float(prediction),
