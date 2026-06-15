@@ -2,22 +2,15 @@ import os
 import joblib
 import pandas as pd
 
-BASE_DIR = os.path.dirname(
-    os.path.dirname(
-        os.path.dirname(__file__)
-    )
-)
+from pathlib import Path
 
-MODEL_PATH = os.path.join(
-    BASE_DIR,
-    "..",
-    "models_ai",
-    "risk_model.pkl"
-)
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-risk_model = joblib.load(
-    MODEL_PATH
-)
+MODEL_PATH = BASE_DIR / "models_ai" / "risk_model.pkl"
+
+print("Risk Model Path:", MODEL_PATH)
+
+risk_model = joblib.load(MODEL_PATH)
 
 
 def predict_risk(features):
