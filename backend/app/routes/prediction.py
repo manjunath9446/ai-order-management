@@ -18,13 +18,21 @@ router = APIRouter(
 # Load Model
 # -----------------------
 
-MODEL_PATH = Path(
-    "D:/ai-order/models_ai/tat_model.pkl"
-)
+import os
+import joblib
+from pathlib import Path
 
-model = joblib.load(
-    MODEL_PATH
-)
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+MODEL_PATH = BASE_DIR / "models_ai" / "tat_model.pkl"
+
+model = None
+
+if MODEL_PATH.exists():
+
+    model = joblib.load(
+        MODEL_PATH
+    )
 
 # -----------------------
 # Request Schema
