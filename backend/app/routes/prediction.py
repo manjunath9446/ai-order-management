@@ -95,13 +95,13 @@ def predict_tat(
 
     if model:
 
-    prediction = model.predict(
-        features
-    )[0]
+        prediction = model.predict(
+            features
+        )[0]
 
     else:
 
-    prediction = (
+        prediction = (
         payload.queue_depth * 2 +
         payload.machine_load * 0.5 +
         payload.qc_failures * 10
