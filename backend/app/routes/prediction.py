@@ -93,9 +93,19 @@ def predict_tat(
         payload
     )
 
+    if model:
+
     prediction = model.predict(
         features
     )[0]
+
+    else:
+
+    prediction = (
+        payload.queue_depth * 2 +
+        payload.machine_load * 0.5 +
+        payload.qc_failures * 10
+    )
 
     return {
         "predicted_completion_hours": round(
